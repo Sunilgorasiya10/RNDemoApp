@@ -22,8 +22,8 @@ class UserList extends Component {
                 <FlatList
                     data={uList}
                     renderItem={({ item }) =>
-                        <View>
-                            <TouchableOpacity style={styles.listStyle} onPress={() => { alert('pressed') }}>
+                        <View style={styles.listView}>
+                            <TouchableOpacity onPress={() => { alert('pressed') }}>
                                 <Text style={styles.listTxtStyle}>{item.email}</Text>
                             </TouchableOpacity>
                         </View>
@@ -43,12 +43,15 @@ const styles = StyleSheet.create({
         backgroundColor: AppStyles.COLOR.BLACK
     },
 
-    listStyle: {
-
+    listView: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: 'red',
+        height: AppStyles.responsiveHeight(5)
     },
 
     listTxtStyle: {
         color: 'white'
-    }
-
+    },
 });

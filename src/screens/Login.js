@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Image, TouchableOpacity, KeyboardAvoidingView, ScrollView, } from 'react-native';
+import { Text, View, StyleSheet, Image, TouchableOpacity, KeyboardAvoidingView, ScrollView, AsyncStorage } from 'react-native';
 import AppStyles from '../config/Styles'
 import AppImages from '../images/index'
 import txtInput from '../components/TextInputComponent';
@@ -9,10 +9,51 @@ import withForm from '../hoc/withForm'
 
 class Login extends Component {
 
-    LoginAction = () => {
+    constructor(props) {
+        super(props);
 
     }
+
+    LoginAction = async (values) => {
+
+        let userLoginDetails = {
+            email: values.email.trim().toLowerCase(),
+            password: values.password,
+        }
+
+        console.log('user dtata : ', userLoginDetails);
+
+        let res = await fetch('https://reqres.in/api/login', {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(userLoginDetails)
+        }).then(response => {
+            if (response.ok) {
+                return response.json();
+            } else console.error('Error : ', response);
+        }).then(json => {
+            console.log(json);
+            return json;
+        }).catch(error => console.error('error', error));
+
+
+        console.log("res :  from api : ", res);
+
+        if (!res.token) {
+            alert("Not Work")
+        }
+        else {
+            // alert("Work")
+            return this.props.navigation.navigate('UserList');
+        }
+
+    }
+
     render() {
+        const { handleSubmit } = this.props;
+
         return (
             <View style={styles.container}>
                 <KeyboardAvoidingView behavior={'height'}>
@@ -51,7 +92,7 @@ class Login extends Component {
                                     component={txtInput}
                                 />
                                 <View style={styles.btnLoginView}>
-                                    <TouchableOpacity style={styles.btnLoginStyle} onPress={this.LoginAction}>
+                                    <TouchableOpacity style={styles.btnLoginStyle} onPress={handleSubmit(this.LoginAction)}>
                                         <Text style={styles.btnLoginTextStyle}>{'Login'}</Text>
                                     </TouchableOpacity>
                                     <TouchableOpacity style={styles.txtResetView}>
@@ -75,7 +116,7 @@ class Login extends Component {
                                         <Text style={styles.txtResetStyle}>{'UserList'}</Text>
                                     </TouchableOpacity>
                                     <TouchableOpacity
-                                        style={[styles.txtResetView, { marginTop: AppStyles.countPixelRatio(30) }]}
+                                        style={[styles.txtResetView, { marginTop: AppStyles.countPixelRatio(20) }]}
                                         onPress={() => this.props.navigation.navigate('Registration')} >
                                         <Text style={styles.txtResetStyle}>{'Dont have an account?'}</Text>
                                         <Text style={[styles.txtResetStyle, { color: 'red', paddingLeft: AppStyles.countPixelRatio(3) }]}>{'Create Profile'}</Text>

@@ -44,6 +44,10 @@ target 'rnDemoApp' do
 
   pod 'RNScreens', :path => '../node_modules/react-native-screens'
 
+  pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
+
+  pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
+
   target 'rnDemoAppTests' do
     inherit! :search_paths
     # Pods for testing
