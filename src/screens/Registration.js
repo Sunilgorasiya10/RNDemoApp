@@ -28,24 +28,23 @@ class Registration extends Component {
                                 <Text style={styles.bottomProfileTextStyle}>{'There is a lot to learn..'}</Text>
                                 <Image source={AppImages.imagePlaceholder} style={styles.topImageStyle} />
                                 <Field
-                                    name='fullName'
-                                    ref='fullName'
-                                    refField={ref => (this['fullName'] = ref)}
-                                    placeholder="Enter Full Name"
+                                    name='FName'
+                                    ref='FName'
+                                    refField={ref => (this['FName'] = ref)}
+                                    placeholder="Enter First Name"
                                     placeholderTextColor="red"
-                                    nextField={'PhNumber'}
+                                    nextField={'LName'}
                                     returnKeyType={'next'}
-                                    onSubmitEdit={(event) => { this['PhNumber'].focus() }}
+                                    onSubmitEdit={(event) => { this['LName'].focus() }}
                                     component={txtInput}
                                 />
                                 <Field
-                                    name='PhNumber'
-                                    ref='PhNumber'
-                                    refField={ref => (this['PhNumber'] = ref)}
-                                    placeholder="Enter Phone Number"
+                                    name='LName'
+                                    ref='LName'
+                                    refField={ref => (this['LName'] = ref)}
+                                    placeholder="Enter Last Name"
                                     placeholderTextColor="red"
                                     nextField={'email'}
-                                    keyboardType={'numeric'}
                                     returnKeyType={'next'}
                                     onSubmitEdit={(event) => { this['email'].focus() }}
                                     component={txtInput}

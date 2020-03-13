@@ -8,7 +8,6 @@ const TextInputComponent = (props) => {
         secureTextEntry,
         refField,
         returnKeyType,
-        keyboardType,
         input: { onChange, value },
         onSubmitEdit } = props;
 
@@ -23,7 +22,6 @@ const TextInputComponent = (props) => {
                 secureTextEntry={secureTextEntry}
                 value={value}
                 onChangeText={onChange}
-                keyboardType={keyboardType}
                 onSubmitEditing={() => {
                     if (onSubmitEdit) {
                         onSubmitEdit()

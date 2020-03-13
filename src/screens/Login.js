@@ -8,6 +8,10 @@ import { connect } from 'react-redux';
 import withForm from '../hoc/withForm'
 
 class Login extends Component {
+
+    LoginAction = () => {
+
+    }
     render() {
         return (
             <View style={styles.container}>
@@ -47,7 +51,7 @@ class Login extends Component {
                                     component={txtInput}
                                 />
                                 <View style={styles.btnLoginView}>
-                                    <TouchableOpacity style={styles.btnLoginStyle}>
+                                    <TouchableOpacity style={styles.btnLoginStyle} onPress={this.LoginAction}>
                                         <Text style={styles.btnLoginTextStyle}>{'Login'}</Text>
                                     </TouchableOpacity>
                                     <TouchableOpacity style={styles.txtResetView}>
