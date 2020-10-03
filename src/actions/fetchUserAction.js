@@ -1,22 +1,18 @@
-import { MAIN_API, USER_LIST, FETCH_USER_ACTION } from '../statics/GlobalConst';
+import { USER_LIST, FETCH_USER_ACTION } from '../statics/GlobalConst';
+import API from '../lib/Api/index'
 
 export const FetchUserList = () => {
     return async dispatch => {
-        await fetch(MAIN_API + USER_LIST)
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    console.error('error', response);
-                }
+
+        let res = await API(USER_LIST, null, 'get')
+
+        if (res.title == 'success') {
+            dispatch({
+                type: FETCH_USER_ACTION,
+                payload: json.data,
             })
-            .then(json => {
-                console.log(json);
-                dispatch({
-                    type: FETCH_USER_ACTION,
-                    payload: json.data,
-                })
-            })
-            .catch(error => console.error('error', error));
+        } else if (res.title == 'error') {
+            alert('Something Wrong')
+        }
     }
 }

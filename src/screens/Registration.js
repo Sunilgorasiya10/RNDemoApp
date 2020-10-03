@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Image, TouchableOpacity, KeyboardAvoidingView, ScrollView, } from 'react-native';
+import {
+    Text, View, StyleSheet, Image, TouchableOpacity, KeyboardAvoidingView,
+    ScrollView, AsyncStorage
+} from 'react-native';
 import AppStyles from '../config/Styles'
 import AppImages from '../images/index'
 import txtInput from '../components/TextInputComponent';
@@ -10,7 +13,6 @@ import withForm from '../hoc/withForm'
 class Registration extends Component {
     render() {
         return (
-
             <View style={styles.container}>
                 <KeyboardAvoidingView behavior={'height'}>
                     <ScrollView>

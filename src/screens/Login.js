@@ -1,54 +1,40 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Image, TouchableOpacity, KeyboardAvoidingView, ScrollView, AsyncStorage } from 'react-native';
+import {
+    Text, View, StyleSheet, Image, TouchableOpacity, KeyboardAvoidingView,
+    ScrollView, AsyncStorage,
+} from 'react-native';
 import AppStyles from '../config/Styles'
 import AppImages from '../images/index'
 import txtInput from '../components/TextInputComponent';
 import { Field } from 'redux-form';
 import { connect } from 'react-redux';
 import withForm from '../hoc/withForm'
+import { USERSTORE, LOGINUSER, USER_LIST } from '../statics/GlobalConst';
+import API from '../lib/Api/index';
 
 class Login extends Component {
-
-    constructor(props) {
-        super(props);
-
-    }
 
     LoginAction = async (values) => {
 
         let userLoginDetails = {
             email: values.email.trim().toLowerCase(),
             password: values.password,
+            // token: '',
         }
-
         console.log('user dtata : ', userLoginDetails);
-
-        let res = await fetch('https://reqres.in/api/login', {
-            method: 'post',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            body: JSON.stringify(userLoginDetails)
-        }).then(response => {
-            if (response.ok) {
-                return response.json();
-            } else console.error('Error : ', response);
-        }).then(json => {
-            console.log(json);
-            return json;
-        }).catch(error => console.error('error', error));
-
-
-        console.log("res :  from api : ", res);
-
-        if (!res.token) {
-            alert("Not Work")
+        let res = await API(LOGINUSER, userLoginDetails, 'post');
+        if (res.title == 'error') {
+            alert('Invalid access');
+        } else {
+            data.token = res.json.token;
+            await AsyncStorage.setItem(USERSTORE, JSON.stringify(data))
+                .then(res => this.props.navigation.navigate('UserList'))
+                .catch(err => {
+                    alert('Try again');
+                    console.error('Login_form async error :', err)
+                    return err;
+                })
         }
-        else {
-            // alert("Work")
-            return this.props.navigation.navigate('UserList');
-        }
-
     }
 
     render() {
